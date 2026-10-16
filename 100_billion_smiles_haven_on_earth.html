@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100 Billion Smiles: Haven on Earth | Global Business Magnates Platform</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        haven: {
+                            50: '#FAF5FF',
+                            100: '#F3E8FF',
+                            200: '#E9D5FF',
+                            300: '#D8B4FE',
+                            400: '#C084FC',
+                            500: '#A855F7',
+                            600: '#9333EA',
+                            700: '#7E22CE',
+                            800: '#6B21A8',
+                            900: '#0F382C', // Emerald Haven Deep
+                            gold: '#E5A93C',
+                            rosegold: '#F4A261',
+                            petal: '#FFB7B2',
+                            silicon: '#1E2022'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Custom Glowing & Haven Aesthetics */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0B0E14;
+            color: #F3F4F6;
+            overflow-x: hidden;
+        }
+        
+        .font-serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .gold-glow-text {
+            background: linear-gradient(135deg, #FFF 0%, #E5A93C 50%, #F4A261 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .emerald-glow-card {
+            background: rgba(15, 56, 44, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(229, 169, 60, 0.25);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .emerald-glow-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            border-color: rgba(229, 169, 60, 0.7);
+            box-shadow: 0 15px 35px -5px rgba(229, 169, 60, 0.25), 0 0 20px rgba(15, 56, 44, 0.8);
+        }
+
+        .glass-panel {
+            background: rgba(18, 24, 38, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Canvas Particle Background */
+        #havenCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0E14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2D3748;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E5A93C;
+        }
+
+        .tab-btn.active {
+            border-bottom: 3px solid #E5A93C;
+            color: #E5A93C;
+            font-weight: 700;
+        }
+
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.05); }
+        }
+
+        .bg-haven-glow {
+            animation: pulse-slow 8s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen text-slate-100 selection:bg-haven-gold selection:text-black">
+
+    <!-- Interactive Canvas Layer for Floating Haven Petals & Stars -->
+    <canvas id="havenCanvas"></canvas>
+
+    <!-- Top Navigation Bar -->
+    <nav class="sticky top-0 z-40 w-full glass-panel border-b border-haven-gold/20 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Brand Logo -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="scrollToTop()">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-haven-gold via-haven-rosegold to-emerald-600 p-0.5 shadow-lg shadow-haven-gold/20 flex items-center justify-center">
+                    <div class="w-full h-full bg-slate-950 rounded-full flex items-center justify-center">
+                        <i class="fa-solid font-bold fa-crown text-haven-gold text-xl"></i>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="font-serif-title font-extrabold text-xl sm:text-2xl tracking-wide gold-glow-text">
+                        100 Billion Smiles
+                    </h1>
+                    <p class="text-[10px] sm:text-xs text-haven-rosegold tracking-widest uppercase font-medium">Haven on Earth Directory</p>
+                </div>
+            </div>
+
+            <!-- Global Action Bar -->
+            <div class="flex items-center space-x-2 sm:space-x-4">
+                <button onclick="openLiveKeynoteModal()" class="px-3 py-2 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-900/60 border border-emerald-500/30 hover:bg-emerald-800 text-emerald-200 flex items-center space-x-2 transition">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                    <i class="fa-solid fa-satellite-dish"></i>
+                    <span class="hidden md:inline">Haven Live Broadcast</span>
+                </button>
+
+                <button onclick="openExecutiveHubModal()" class="px-3 py-2 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-gradient-to-r from-haven-gold to-haven-rosegold text-slate-950 hover:brightness-110 flex items-center space-x-2 transition shadow-lg shadow-haven-gold/20">
+                    <i class="fa-solid fa-user-astronaut"></i>
+                    <span class="hidden sm:inline">Amim Ahsan (Producer Hub)</span>
+                </button>
+
+                <button onclick="openSourceModal()" class="p-2 sm:px-3 sm:py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 text-xs sm:text-sm border border-slate-700 transition" title="View Source & Export">
+                    <i class="fa-solid fa-code"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Header & Vision Announcement -->
+    <header class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8 text-center">
+        <!-- Celestial Glow Orb -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-haven-gold/10 rounded-full blur-3xl bg-haven-glow pointer-events-none"></div>
+
+        <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-haven-gold/10 border border-haven-gold/30 text-haven-gold text-xs sm:text-sm font-medium mb-6 backdrop-blur-md">
+            <i class="fa-solid fa-sparkles text-haven-rosegold"></i>
+            <span>Architected by Founder & Executive Producer: <strong>Amim Ahsan</strong></span>
+            <i class="fa-solid fa-sparkles text-haven-rosegold"></i>
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-serif-title font-black text-white tracking-tight leading-none mb-6">
+            100 Business Titans <br class="hidden sm:inline">
+            <span class="gold-glow-text">& The 10 Legendary Tycoons</span>
+        </h1>
+
+        <p class="max-w-3xl mx-auto text-slate-300 text-base sm:text-lg leading-relaxed mb-8">
+            Welcome to <strong class="text-haven-gold">100 Billion Smiles: Haven on Earth</strong> — an immersive, dreamy digital sanctuary celebrating humanity’s greatest industrial masterminds, trillion-dollar tech visionaries, and economic architects.
+        </p>
+
+        <!-- Stats Bar -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto my-8">
+            <div class="glass-panel p-4 rounded-2xl border border-white/5">
+                <div class="text-haven-gold text-2xl font-extrabold font-serif-title">$18.5+ Trillion</div>
+                <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Combined Wealth Empire</div>
+            </div>
+            <div class="glass-panel p-4 rounded-2xl border border-white/5">
+                <div class="text-emerald-400 text-2xl font-extrabold font-serif-title">100 Profile Cards</div>
+                <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Live & Verified Data</div>
+            </div>
+            <div class="glass-panel p-4 rounded-2xl border border-white/5">
+                <div class="text-haven-rosegold text-2xl font-extrabold font-serif-title">10 Top Tycoons</div>
+                <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Historical Legends</div>
+            </div>
+            <div class="glass-panel p-4 rounded-2xl border border-white/5">
+                <div class="text-purple-400 text-2xl font-extrabold font-serif-title">100B Smiles</div>
+                <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Global Economic Impact</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 1: TOP FEATURED 10 HISTORICAL TYCOONS -->
+    <section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 border-b border-haven-gold/20 pb-4">
+            <div>
+                <span class="text-haven-gold font-bold text-xs uppercase tracking-widest">Hall of Immortal Builders</span>
+                <h2 class="text-3xl sm:text-4xl font-serif-title font-bold text-white mt-1">
+                    Top 10 Feature Tycoons
+                </h2>
+            </div>
+            <p class="text-sm text-slate-400 mt-2 md:mt-0 max-w-md">
+                The founding architects of modern industrial capitalism who built the steel, railways, energy grids, and banking foundations of our modern world.
+            </p>
+        </div>
+
+        <!-- Featured 10 Horizontal Grid / Dynamic Cards -->
+        <div id="topTenTycoonsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
+            <!-- Rendered by JS -->
+        </div>
+    </section>
+
+    <!-- SECTION 2: THE 100 BILLION SMILES MAIN DIRECTORY -->
+    <section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" id="directory">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between mb-8 gap-4 bg-slate-900/80 p-6 rounded-3xl border border-haven-gold/20 backdrop-blur-md">
+            <div>
+                <span class="text-haven-rosegold font-bold text-xs uppercase tracking-widest">Global Siliconous Haven</span>
+                <h2 class="text-3xl font-serif-title font-bold text-white">100 Billion Smiles Directory</h2>
+                <p class="text-xs text-slate-400 mt-1">Showing active modern magnates, innovators, and world leaders.</p>
+            </div>
+
+            <!-- Search and Filter Controls -->
+            <div class="flex flex-col sm:flex-row items-center gap-3">
+                <div class="relative w-full sm:w-64">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" id="searchInput" oninput="filterMagnates()" placeholder="Search leader, company, or country..." class="w-full bg-slate-950/80 text-sm text-white pl-10 pr-4 py-2.5 rounded-xl border border-slate-700 focus:outline-none focus:border-haven-gold transition">
+                </div>
+
+                <select id="industryFilter" onchange="filterMagnates()" class="w-full sm:w-48 bg-slate-950/80 text-sm text-white px-3 py-2.5 rounded-xl border border-slate-700 focus:outline-none focus:border-haven-gold transition">
+                    <option value="ALL">All Industries</option>
+                    <option value="Tech">Technology & AI</option>
+                    <option value="Finance">Finance & Banking</option>
+                    <option value="Automotive">Automotive & Space</option>
+                    <option value="Energy">Energy & Petrochemicals</option>
+                    <option value="Luxury">Luxury & Fashion</option>
+                    <option value="Retail">Retail & E-Commerce</option>
+                    <option value="Steel">Steel & Infrastructure</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 100 Magnates Grid -->
+        <div id="magnatesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Dynamically populated via JS -->
+        </div>
+
+        <!-- Pagination / Load Tracker -->
+        <div class="mt-12 text-center">
+            <p id="showingCountText" class="text-xs text-slate-400 mb-4">Showing 100 of 100 Business Leaders</p>
+            <button onclick="scrollToTop()" class="px-6 py-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition border border-slate-700">
+                <i class="fa-solid fa-arrow-up mr-2"></i> Back to Top
+            </button>
+        </div>
+    </section>
+
+    <!-- COMPREHENSIVE MAGNATE MODAL (5 TABS) -->
+    <div id="magnateModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-slate-950/85 backdrop-blur-xl">
+        <div class="relative w-full max-w-4xl bg-slate-900 border border-haven-gold/30 rounded-3xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
+            
+            <!-- Modal Header / Cover Image Banner -->
+            <div class="relative h-48 sm:h-64 w-full bg-gradient-to-r from-emerald-950 via-slate-900 to-slate-950 overflow-hidden shrink-0">
+                <img id="modalCoverImg" src="" alt="Cover" class="w-full h-full object-cover opacity-40 mix-blend-overlay">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
+
+                <!-- Close Modal Button -->
+                <button onclick="closeMagnateModal()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-slate-950/70 border border-white/20 text-white flex items-center justify-center hover:bg-rose-600 transition z-20">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+
+                <!-- Profile Info Overlay Header -->
+                <div class="absolute bottom-4 left-6 right-6 flex items-end justify-between">
+                    <div class="flex items-end space-x-4">
+                        <img id="modalProfileImg" src="" alt="Profile" class="w-20 h-20 sm:w-28 sm:h-28 rounded-2xl object-cover border-4 border-slate-900 shadow-2xl bg-slate-800">
+                        <div class="mb-1">
+                            <div class="flex items-center space-x-2">
+                                <span id="modalRank" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-haven-gold text-slate-950">#1</span>
+                                <span id="modalCountry" class="text-xs text-slate-300 font-medium">USA</span>
+                            </div>
+                            <h2 id="modalName" class="text-2xl sm:text-3xl font-serif-title font-bold text-white mt-1">Elon Musk</h2>
+                            <p id="modalIndustry" class="text-xs sm:text-sm text-haven-rosegold font-medium">Technology & Automotive</p>
+                        </div>
+                    </div>
+
+                    <!-- Net Worth Badge -->
+                    <div class="hidden sm:block text-right mb-1">
+                        <span class="text-[10px] text-slate-400 uppercase tracking-widest block">Net Worth</span>
+                        <span id="modalNetWorth" class="text-2xl font-extrabold gold-glow-text font-serif-title">$1.0 Trillion</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Navigation Bar -->
+            <div class="flex border-b border-slate-800 bg-slate-950/60 overflow-x-auto text-xs sm:text-sm shrink-0">
+                <button onclick="switchTab('tab-bio')" class="tab-btn active px-5 py-3.5 whitespace-nowrap transition hover:text-haven-gold">
+                    <i class="fa-solid fa-user-tie mr-1.5"></i> Bio & Thoughts
+                </button>
+                <button onclick="switchTab('tab-works')" class="tab-btn px-5 py-3.5 whitespace-nowrap transition text-slate-400 hover:text-haven-gold">
+                    <i class="fa-solid fa-trophy mr-1.5"></i> Notable Works
+                </button>
+                <button onclick="switchTab('tab-success')" class="tab-btn px-5 py-3.5 whitespace-nowrap transition text-slate-400 hover:text-haven-gold">
+                    <i class="fa-solid fa-chart-line mr-1.5"></i> Why, How & When Succeeded
+                </button>
+                <button onclick="switchTab('tab-companies')" class="tab-btn px-5 py-3.5 whitespace-nowrap transition text-slate-400 hover:text-haven-gold">
+                    <i class="fa-solid fa-building mr-1.5"></i> Companies & Successors
+                </button>
+                <button onclick="switchTab('tab-vision')" class="tab-btn px-5 py-3.5 whitespace-nowrap transition text-slate-400 hover:text-haven-gold">
+                    <i class="fa-solid fa-eye mr-1.5"></i> Vision & Mission
+                </button>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="p-6 overflow-y-auto text-sm space-y-6 flex-1 text-slate-300">
+                
+                <!-- TAB 1: BIO & THOUGHTS -->
+                <div id="tab-bio" class="tab-content space-y-4">
+                    <div class="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/20 italic text-emerald-200">
+                        <i class="fa-solid fa-quote-left mr-2 text-haven-gold"></i>
+                        <span id="modalQuote">"When something is important enough, you do it even if the odds are not in your favor."</span>
+                    </div>
+                    <div class="space-y-3">
+                        <h4 class="text-white font-semibold text-base border-b border-slate-800 pb-1">Biography Overview</h4>
+                        <p id="modalBioText" class="leading-relaxed">Detailed personal life and early beginnings...</p>
+                    </div>
+                </div>
+
+                <!-- TAB 2: NOTABLE WORKS & ACHIEVEMENTS -->
+                <div id="tab-works" class="tab-content hidden space-y-4">
+                    <h4 class="text-white font-semibold text-base border-b border-slate-800 pb-1">Key Legacy Projects & Innovations</h4>
+                    <ul id="modalWorksList" class="space-y-2 list-disc list-inside text-slate-300">
+                        <!-- JS injected list items -->
+                    </ul>
+                    <div id="modalImportanceBox" class="p-4 rounded-xl bg-slate-950 border border-haven-gold/20">
+                        <span class="text-xs font-bold text-haven-gold uppercase tracking-wider block mb-1">Global Importance</span>
+                        <p id="modalImportanceText" class="text-xs sm:text-sm">Why their contributions altered human history...</p>
+                    </div>
+                </div>
+
+                <!-- TAB 3: WHY / HOW / WHEN THEY SUCCEEDED -->
+                <div id="tab-success" class="tab-content hidden space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+                            <span class="text-xs text-haven-rosegold font-bold block mb-1">WHEN THEY SUCCEEDED</span>
+                            <p id="modalWhenText" class="text-xs">Key breakthrough decade or epoch.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+                            <span class="text-xs text-haven-gold font-bold block mb-1">WHY THEY SUCCEEDED</span>
+                            <p id="modalWhyText" class="text-xs">Core mindset and competitive moat.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+                            <span class="text-xs text-emerald-400 font-bold block mb-1">HOW THEY SUCCEEDED</span>
+                            <p id="modalHowText" class="text-xs">Execution methodologies and strategies.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: COMPANIES, PRODUCTS & SUCCESSORS -->
+                <div id="tab-companies" class="tab-content hidden space-y-4">
+                    <div class="space-y-2">
+                        <h4 class="text-white font-semibold text-base border-b border-slate-800 pb-1">Primary Enterprises & Flagship Products</h4>
+                        <p id="modalCompaniesText" class="text-slate-300">List of enterprises founded or led...</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-950 border border-purple-500/20">
+                        <span class="text-xs font-bold text-purple-400 uppercase tracking-wider block mb-1">Succeded By / Next Gen Leadership</span>
+                        <p id="modalSucceededByText" class="text-xs sm:text-sm">Key lieutenants, heirs, or successor CEOs...</p>
+                    </div>
+                </div>
+
+                <!-- TAB 5: VISION & MISSION -->
+                <div id="tab-vision" class="tab-content hidden space-y-4">
+                    <div class="p-5 rounded-2xl bg-gradient-to-r from-haven-gold/10 to-emerald-950/40 border border-haven-gold/30">
+                        <h4 class="text-haven-gold font-bold text-base mb-2"><i class="fa-solid fa-compass mr-2"></i> Mission Statement</h4>
+                        <p id="modalMissionText" class="text-slate-200 leading-relaxed">Core operational purpose and goal.</p>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-slate-950 border border-slate-800">
+                        <h4 class="text-haven-rosegold font-bold text-base mb-2"><i class="fa-solid fa-eye mr-2"></i> Long-Term Vision</h4>
+                        <p id="modalVisionText" class="text-slate-300 leading-relaxed">Where they aim to lead humanity in 50 years.</p>
+                    </div>
+                </div>
+
+                <!-- Fan Reaction & Comment Box -->
+                <div class="pt-4 border-t border-slate-800">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Leave a Tribute / Inspiration Reaction</span>
+                        <div class="flex space-x-2" id="reactionButtonsContainer">
+                            <button onclick="addReaction('glow')" class="px-3 py-1 rounded-full text-xs bg-slate-800 hover:bg-haven-gold hover:text-slate-950 transition border border-slate-700">
+                                ✨ Glow <span id="react-glow-count">142</span>
+                            </button>
+                            <button onclick="addReaction('salute')" class="px-3 py-1 rounded-full text-xs bg-slate-800 hover:bg-emerald-500 hover:text-slate-950 transition border border-slate-700">
+                                🏆 Salute <span id="react-salute-count">89</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer Bar -->
+            <div class="p-4 bg-slate-950 border-t border-slate-800 flex items-center justify-between shrink-0">
+                <span class="text-xs text-slate-500">100 Billion Smiles Verified Archive ID: <strong id="modalArchiveId">SM-001</strong></span>
+                <button onclick="closeMagnateModal()" class="px-5 py-2 rounded-xl bg-haven-gold text-slate-950 font-bold text-xs hover:brightness-110 transition">
+                    Close Profile
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- EXECUTIVE PRODUCER HUB MODAL (AMIM AHSAN) -->
+    <div id="executiveHubModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+        <div class="relative w-full max-w-2xl bg-slate-900 border border-haven-gold/40 rounded-3xl p-6 shadow-2xl space-y-6">
+            <button onclick="closeExecutiveHubModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <div class="flex items-center space-x-4 border-b border-slate-800 pb-4">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-haven-gold to-emerald-500 p-0.5 shadow-lg">
+                    <div class="w-full h-full bg-slate-950 rounded-2xl flex items-center justify-center font-bold text-2xl text-haven-gold">
+                        AA
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-serif-title font-bold text-white">Amim Ahsan</h3>
+                    <p class="text-xs text-haven-gold font-medium uppercase tracking-wider">Founder & Executive Producer</p>
+                    <span class="inline-block mt-1 px-2 py-0.5 rounded-md text-[10px] bg-emerald-950 text-emerald-300 border border-emerald-500/30">Verified Platform Architect</span>
+                </div>
+            </div>
+
+            <div class="space-y-3 text-sm text-slate-300">
+                <p>
+                    <strong>Executive Vision:</strong> "100 Billion Smiles was engineered as a dreamy, siliconous haven on Earth—bridging the titans of the past with the AI-driven trillions of tomorrow. Our mission is to capture economic inspiration and translate industrial legacy into human flourishing."
+                </p>
+                <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                    <div class="flex justify-between text-xs">
+                        <span class="text-slate-400">Platform Status:</span>
+                        <span class="text-emerald-400 font-bold">100% Operational (Global Nodes)</span>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span class="text-slate-400">Total Profile Cards Rendered:</span>
+                        <span class="text-haven-gold font-bold">10 Feature Tycoons + 100 Leaders</span>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span class="text-slate-400">Platform Valuation Target:</span>
+                        <span class="text-haven-rosegold font-bold">$100 Billion Network Effect</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button onclick="closeExecutiveHubModal()" class="px-5 py-2 rounded-xl bg-slate-800 text-slate-200 text-xs font-semibold hover:bg-slate-700 transition">
+                    Done Reading
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIVE BROADCAST SIMULATOR MODAL -->
+    <div id="liveKeynoteModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
+        <div class="relative w-full max-w-3xl bg-slate-900 border border-emerald-500/30 rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[85vh]">
+            <div class="p-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 animate-ping"></span>
+                    <h3 class="font-bold text-white text-sm sm:text-base">Haven Live: Global Titan Keynote Feed</h3>
+                </div>
+                <button onclick="closeLiveKeynoteModal()" class="text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="p-4 bg-black relative flex-1 flex flex-col justify-end min-h-[250px] overflow-hidden">
+                <div class="absolute inset-0 opacity-30 bg-[radial-gradient(#E5A93C_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                <div class="relative z-10 space-y-3">
+                    <div class="p-3 rounded-xl bg-slate-900/90 border border-haven-gold/30 text-xs max-w-md">
+                        <span class="font-bold text-haven-gold block">Elon Musk (Live Trillionaire Stream)</span>
+                        "The multiplanetary revolution is accelerating faster than expected. Clean energy and AI are scaling exponentially!"
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-700 text-xs max-w-md ml-auto">
+                        <span class="font-bold text-haven-rosegold block">Jensen Huang (Live Stream)</span>
+                        "Accelerated computing is the engine of the modern Haven era. We are building digital twins of the earth."
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Interaction Sandbox -->
+            <div class="p-4 bg-slate-950 border-t border-slate-800 flex items-center space-x-3">
+                <input type="text" id="liveChatInput" placeholder="Send a reaction or token smile..." class="flex-1 bg-slate-900 text-xs text-white px-4 py-2.5 rounded-xl border border-slate-800 focus:outline-none focus:border-haven-gold">
+                <button onclick="sendLiveMessage()" class="px-4 py-2.5 bg-haven-gold text-slate-950 text-xs font-bold rounded-xl hover:brightness-110 transition">
+                    Send <i class="fa-solid fa-paper-plane ml-1"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SOURCE CODE VIEWER & DOWNLOAD MODAL -->
+    <div id="sourceModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
+        <div class="relative w-full max-w-4xl bg-slate-900 border border-slate-700 rounded-3xl p-6 shadow-2xl flex flex-col max-h-[85vh]">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
+                <div>
+                    <h3 class="text-xl font-bold text-white">Full Source Code Inspector</h3>
+                    <p class="text-xs text-slate-400">Single-file dynamic standard document application.</p>
+                </div>
+                <button onclick="closeSourceModal()" class="text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <textarea id="sourceCodeTextArea" readonly class="w-full flex-1 bg-slate-950 text-emerald-400 font-mono text-xs p-4 rounded-xl border border-slate-800 focus:outline-none resize-none overflow-y-auto mb-4"></textarea>
+
+            <div class="flex items-center justify-between">
+                <button onclick="copySourceToClipboard()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition">
+                    <i class="fa-solid fa-copy mr-1"></i> Copy Code
+                </button>
+                <button onclick="downloadSingleFileHtml()" class="px-5 py-2.5 rounded-xl bg-haven-gold text-slate-950 font-bold text-xs hover:brightness-110 transition shadow-lg shadow-haven-gold/20">
+                    <i class="fa-solid fa-download mr-1"></i> Download Single-File HTML
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="relative z-10 border-t border-slate-800 bg-slate-950 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-haven-gold/20 flex items-center justify-center text-haven-gold font-bold">
+                    100
+                </div>
+                <div>
+                    <div class="text-white font-serif-title font-bold">100 Billion Smiles: Haven on Earth</div>
+                    <div class="text-xs text-slate-500">Executive Producer: <strong>Amim Ahsan</strong></div>
+                </div>
+            </div>
+
+            <p class="text-xs text-slate-500 text-center">
+                Data reflects public estimations, historic archives, and modern valuations up to 2026. <br>
+                Crafted with Siliconous Haven Floral Aesthetics & Dynamic JS.
+            </p>
+
+            <div class="flex space-x-4 text-slate-400 text-lg">
+                <a href="#" class="hover:text-haven-gold transition"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" class="hover:text-haven-gold transition"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" class="hover:text-haven-gold transition"><i class="fa-brands fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT APPLICATION DATA & LOGIC -->
+    <script>
+        /* -------------------------------------------------------------
+           1. TOP 10 FEATURED HISTORICAL TYCOONS DATA
+        ------------------------------------------------------------- */
+        const topTenTycoons = [
+            {
+                rank: 1,
+                name: "John D. Rockefeller",
+                years: "1839–1937",
+                industry: "Oil & Petrochemicals",
+                empire: "Standard Oil",
+                netWorth: "$400B+ (Inflation Adj.)",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/John_D._Rockefeller_1885.jpg/800px-John_D._Rockefeller_1885.jpg",
+                impact: "Created America's first major monopoly and became the country's first billionaire through ruthless cost-efficiency and vertical integration.",
+                quote: "Do you know the only thing that gives me pleasure? It's to see my dividends coming in.",
+                bio: "Born in Richford, New York, Rockefeller founded Standard Oil in 1870. He controlled over 90% of all oil refined in the United States by streamlining operations, buying out rivals, and mastering logistics.",
+                works: ["Standard Oil Trust", "University of Chicago Founder", "Rockefeller Foundation", "Pioneered Modern Philanthropy"],
+                importance: "Laid the blueprint for the modern petroleum age, global energy infrastructure, and corporate holding structures.",
+                when: "1870s – 1910s (Gilded Age)",
+                why: "Obsessive focus on waste reduction, vertical integration, and cash liquidity during market panics.",
+                how: "Bought refineries during downturns and negotiated secret rebate deals with major railroad lines.",
+                companies: "Standard Oil (split into ExxonMobil, Chevron, BP, etc.)",
+                successors: "John D. Rockefeller Jr., Standard Oil Board",
+                vision: "To organize the chaos of the early oil industry into a single hyper-efficient global enterprise."
+            },
+            {
+                rank: 2,
+                name: "Andrew Carnegie",
+                years: "1835–1919",
+                industry: "Steel & Metallurgy",
+                empire: "Carnegie Steel Company",
+                netWorth: "$380B+ (Inflation Adj.)",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Andrew_Carnegie_1913.jpg/800px-Andrew_Carnegie_1913.jpg",
+                impact: "Masterminded mass production techniques and cost controls that built the infrastructure and skylines of modern industrial cities.",
+                quote: "The man who dies thus rich dies disgraced.",
+                bio: "A Scottish immigrant who started as a telegraph messenger boy, Carnegie embraced the Bessemer process to mass-produce cheap steel for American railroads, bridges, and skyscrapers.",
+                works: ["Carnegie Steel Company", "Over 2,500 Public Carnegie Libraries", "Carnegie Hall", "Carnegie Mellon University"],
+                importance: "Provided the structural steel that enabled the growth of modern cities, skyscrapers, and continental railway networks.",
+                when: "1880s – 1901",
+                why: "Relentless adoption of technological innovation and insistence on accounting accuracy for every ton of steel produced.",
+                how: "Built huge modern mills like Edgar Thomson Steel Works and integrated iron ore mines, ships, and rail transport.",
+                companies: "Carnegie Steel (sold to J.P. Morgan to form U.S. Steel)",
+                successors: "Charles M. Schwab, J.P. Morgan",
+                vision: "To make steel so cheap that America could build its entire national infrastructure out of metal."
+            },
+            {
+                rank: 3,
+                name: "Henry Ford",
+                years: "1863–1947",
+                industry: "Automotive & Manufacturing",
+                empire: "Ford Motor Company",
+                netWorth: "$200B+ (Inflation Adj.)",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Henry_ford_1919.jpg/800px-Henry_ford_1919.jpg",
+                impact: "Revolutionized manufacturing by perfecting the moving assembly line and making the Model T affordable for average workers.",
+                quote: "Whether you think you can, or you think you can't – you're right.",
+                bio: "Engineered the Model T in 1908 and introduced the continuous moving assembly line in 1913, drastically cutting production times from 12 hours to 93 minutes.",
+                works: ["Ford Model T", "Moving Assembly Line System", "$5-a-day wage innovation", "Ford River Rouge Complex"],
+                importance: "Democratized automobile ownership and created the modern consumer-class economic model.",
+                when: "1908 – 1920s",
+                why: "Focus on extreme standardization, vertical integration, and consumer affordability.",
+                how: "Breaking down vehicle manufacturing into simple, repeatable assembly line steps.",
+                companies: "Ford Motor Company",
+                successors: "Edsel Ford, Henry Ford II",
+                vision: "To build a motor car for the great multitude that anyone earning a decent salary could afford."
+            },
+            {
+                rank: 4,
+                name: "Cornelius Vanderbilt",
+                years: "1794–1877",
+                industry: "Shipping & Railroads",
+                empire: "New York Central Railroad",
+                netWorth: "$210B+ (Inflation Adj.)",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Cornelius_Vanderbilt_Daguerreotype_c1855.jpg/800px-Cornelius_Vanderbilt_Daguerreotype_c1855.jpg",
+                impact: "Consolidated major rail and steamship networks, drastically lowering freight and passenger transport costs across the United States.",
+                quote: "You have undertaken to cheat me. I won't sue you, for the law is too slow. I'll ruin you.",
+                bio: "Known as 'The Commodore', Vanderbilt started with a single ferry boat in New York Harbor and grew it into a steamship empire before pivoting into consolidating American railroads.",
+                works: ["Grand Central Terminal (NYC)", "New York Central Railroad", "Vanderbilt University Founder"],
+                importance: "Unified regional rail lines into a singular, rapid transit system linking the East Coast to the Midwest.",
+                when: "1830s – 1870s",
+                why: "Fierce competitive pricing, rapid expansion, and aggressive financial maneuvers.",
+                how: "Undercut rivals' fare rates until they went bankrupt, then bought their assets at deep discounts.",
+                companies: "New York Central Railroad, Accessory Transit Co.",
+                successors: "William Henry Vanderbilt",
+                vision: "To control the primary transport corridors connecting American commerce."
+            },
+            {
+                rank: 5,
+                name: "J.P. Morgan",
+                years: "1837–1913",
+                industry: "Finance & Banking",
+                empire: "J.P. Morgan & Co. / General Electric / U.S. Steel",
+                netWorth: "$100B+ (Inflation Adj.)",
+                impact: "Finance & Banking Tycoon: Reorganized distressed industries, bailed out the U.S. Treasury, and financed giant conglomerates.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Jp_morgan.jpg/800px-Jp_morgan.jpg",
+                quote: "A man always has two reasons for doing anything: a good reason and the real reason.",
+                bio: "America's dominant investment banker during the turn of the century. He organized the creation of General Electric and United States Steel.",
+                works: ["Creation of U.S. Steel ($1B corporation)", "Creation of General Electric", "Bailout of the U.S. Gold Reserve (1895)"],
+                importance: "Established Wall Street as a global financial power house and pioneered corporate consolidation ('Morganization').",
+                when: "1890s – 1910s",
+                why: "Unmatched credibility, capital access, and strategic control over boardrooms.",
+                how: "Purchased competing rail and steel entities and consolidated them into efficient monopolies.",
+                companies: "J.P. Morgan & Co. (JPMorgan Chase)",
+                successors: "J.P. Morgan Jr.",
+                vision: "To bring stability and order to competitive financial markets through central private banking leadership."
+            },
+            {
+                rank: 6,
+                name: "John Jacob Astor",
+                years: "1763–1848",
+                industry: "Real Estate & Trade",
+                empire: "American Fur Company & NYC Real Estate",
+                netWorth: "$140B+ (Inflation Adj.)",
+                impact: "Real Estate Tycoon: Built America's first fur trade monopoly and acquired massive New York City property holdings.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/John_Jacob_Astor_by_John_Wesley_Jarvis.jpg/800px-John_Jacob_Astor_by_John_Wesley_Jarvis.jpg",
+                quote: "Could I buy all the land in Manhattan, I would buy it without hesitation.",
+                bio: "Emigrated from Germany and built a fur trade network stretching to China, before investing all profits into Manhattan real estate.",
+                works: ["Astor Library (NY Public Library foundation)", "Manhattan Real Estate Empire", "Pacific Fur Company"],
+                importance: "Pioneered urban real estate investment and global trade routes between North America and Asia.",
+                when: "1790s – 1840s",
+                why: "Anticipated the booming population expansion of New York City.",
+                how: "Bought Manhattan farmland outside city limits and leased it for multi-decade developments.",
+                companies: "American Fur Company",
+                successors: "William Backhouse Astor Sr.",
+                vision: "To own the physical land beneath the fastest-growing city on Earth."
+            },
+            {
+                rank: 7,
+                name: "Henry Clay Frick",
+                years: "1849–1919",
+                industry: "Coke & Steel",
+                empire: "H.C. Frick & Company",
+                netWorth: "$85B+ (Inflation Adj.)",
+                impact: "Industrial Coke Tycoon: Controlled the essential coke fuel required to power America's steel furnaces.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Henry_Clay_Frick_c1910.jpg/800px-Henry_Clay_Frick_c1910.jpg",
+                quote: "I am determined to see this through no matter what happens.",
+                bio: "Partnered with Andrew Carnegie to supply all coal-coke fuel necessary for Carnegie Steel, known for his unyielding industrial management.",
+                works: ["H.C. Frick Coke Company", "The Frick Collection Art Museum", "Homestead Steel Management"],
+                importance: "Ensured the fuel supply chain for America's industrial steel revolution.",
+                when: "1870s – 1900s",
+                why: "Ruthless cost efficiency and early cornering of coke coal deposits.",
+                how: "Bought out competing coal operations during financial panics.",
+                companies: "H.C. Frick & Co., U.S. Steel director",
+                successors: "Frick Estate & Trustees",
+                vision: "To monopolize the critical energy source powering steel manufacturing."
+            },
+            {
+                rank: 8,
+                name: "Thomas Edison",
+                years: "1847–1931",
+                industry: "Electricity & Innovation",
+                empire: "Edison General Electric",
+                netWorth: "$12B+ (Inflation Adj.)",
+                impact: "Innovation & Utilities Tycoon: Invented commercial electric light grids, phonographs, and motion picture cameras.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Thomas_Edison2.jpg/800px-Thomas_Edison2.jpg",
+                quote: "Genius is one percent inspiration and ninety-nine percent perspiration.",
+                bio: "Holder of 1,093 U.S. patents. Created the world's first industrial research lab at Menlo Park, New Jersey.",
+                works: ["Incandescent Light Bulb", "Phonograph", "Motion Picture Camera", "Pearl Street Power Station"],
+                importance: "Electrified human civilization and pioneered the modern industrial R&D laboratory model.",
+                when: "1870s – 1910s",
+                why: "Relentless trial-and-error experimentation paired with commercial execution.",
+                how: "Commercialized basic inventions into full-scale utility ecosystems.",
+                companies: "Edison Illuminating Co., General Electric",
+                successors: "Charles Coffin (GE CEO)",
+                vision: "To make electric light so cheap that only the rich will burn candles."
+            },
+            {
+                rank: 9,
+                name: "Andrew Mellon",
+                years: "1855–1937",
+                industry: "Banking & Aluminum",
+                empire: "Mellon Bank / ALCOA / Gulf Oil",
+                netWorth: "$90B+ (Inflation Adj.)",
+                impact: "Investment Banking Tycoon: Financed giant industrial monopolies including ALCOA, Gulf Oil, and Carborundum.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Andrew_W_Mellon_cph.3a52865.jpg/800px-Andrew_W_Mellon_cph.3a52865.jpg",
+                quote: "Gentlemen prefer bonds.",
+                bio: "Pittsburgh banker who became U.S. Secretary of the Treasury, playing a central role in financing early 20th-century corporations.",
+                works: ["Mellon National Bank", "ALCOA Founder", "Gulf Oil Co-Founder", "National Gallery of Art Founder"],
+                importance: "Financed the technological transitions in aluminum, oil, and heavy industry.",
+                when: "1890s – 1930s",
+                why: "Discerning venture financing of breakthrough industrial patents.",
+                how: "Exchanged growth capital for majority equity stakes in emerging industrial monopolies.",
+                companies: "Mellon Bank, ALCOA, Gulf Oil",
+                successors: "Richard Beatty Mellon",
+                vision: "To deploy private capital into scalable, capital-intensive manufacturing technologies."
+            },
+            {
+                rank: 10,
+                name: "Marshall Field",
+                years: "1834–1906",
+                industry: "Retail & Commerce",
+                empire: "Marshall Field & Company",
+                netWorth: "$65B+ (Inflation Adj.)",
+                impact: "Retail & Department Store Tycoon: Revolutionized modern shopping with money-back guarantees and unconditional customer service.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Marshall_field.jpg/800px-Marshall_field.jpg",
+                quote: "Give the lady what she wants.",
+                bio: "Chicago merchant who created the modern department store, establishing revolutionary customer-first principles.",
+                works: ["Marshall Field's Department Store", "Field Museum of Natural History", "First Revolving Credit in Retail"],
+                importance: "Defined urban retail, customer satisfaction standards, and modern merchandising.",
+                when: "1860s – 1900s",
+                why: "Focus on supreme service quality, fixed transparent pricing, and elegant shopping environments.",
+                how: "Introduced clear return policies and in-store dining experiences.",
+                companies: "Marshall Field & Co. (now Macy's)",
+                successors: "Marshall Field II & Board",
+                vision: "To transform shopping into an luxurious, trustworthy cultural experience."
+            }
+        ];
+
+        /* -------------------------------------------------------------
+           2. MAIN DIRECTORY: 100 GLOBAL BUSINESS LEADERS (2026 REAL/PROJECTED DATA)
+        ------------------------------------------------------------- */
+        const magnates100 = [
+            {
+                rank: 1,
+                name: "Elon Musk",
+                country: "🇺🇸 USA",
+                industry: "Automotive",
+                netWorth: "$1.02 Trillion",
+                company: "Tesla, SpaceX, xAI, X",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/800px-Elon_Musk_Royal_Society_%28crop2%29.jpg",
+                coverImg: "https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&w=1200&q=80",
+                quote: "When something is important enough, you do it even if the odds are not in your favor.",
+                bio: "Elon Musk is a visionary engineer and business magnate leading Tesla, SpaceX, Neuralink, and xAI. He became the world's first trillionaire following rapid breakthroughs in autonomous robotics and space infrastructure.",
+                works: ["Reusable Falcon 9 Rockets", "Full Self-Driving Autopilot", "Starlink Global Satellite Network", "Grok AI Platform"],
+                importance: "Pioneered mass-market electric transit, re-ignited space exploration, and accelerated artificial general intelligence.",
+                when: "2000s – Present",
+                why: "First-principles thinking, extreme risk tolerance, and intense engineering execution.",
+                how: "Vertical integration of manufacturing and rapid iterative design prototypes.",
+                companies: "Tesla, SpaceX, xAI, Neuralink, Boring Co.",
+                succeededBy: "Gwynne Shotwell (SpaceX COO), Vaibhav Taneja (Tesla CFO)",
+                mission: "To accelerate the world's transition to sustainable energy and make life multiplanetary.",
+                vision: "Establish a self-sustaining city on Mars with 1,000,000 inhabitants by 2050."
+            },
+            {
+                rank: 2,
+                name: "Mark Zuckerberg",
+                country: "🇺🇸 USA",
+                industry: "Tech",
+                netWorth: "$240 Billion",
+                company: "Meta (Facebook, Instagram, WhatsApp)",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Mark_Zuckerberg_F8_2019_Keynote_%2832854410857%29_%28cropped%29.jpg/800px-Mark_Zuckerberg_F8_2019_Keynote_%2832854410857%29_%28cropped%29.jpg",
+                coverImg: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+                quote: "Move fast and break things. Unless you are breaking stuff, you are not moving fast enough.",
+                bio: "Co-founded Facebook in his Harvard dorm room in 2004. He expanded it into Meta, connecting over 3 billion active users across social platforms and open-source AI models like Llama.",
+                works: ["Facebook Social Graph", "Metaverse Quest Hardware", "Llama Open Source AI Suite"],
+                importance: "Reshaped human communication, social interaction, and digital media advertising worldwide.",
+                when: "2004 – Present",
+                why: "Relentless product iteration and decisive acquisitions of Instagram and WhatsApp.",
+                how: "Maintained dual-class voting control to make long-term bets without short-term market interference.",
+                companies: "Meta Platforms Inc.",
+                succeededBy: "Javier Olivan (Meta COO)",
+                mission: "To give people the power to build community and bring the world closer together.",
+                vision: "Pioneer spatial computing and open artificial general intelligence for everyone."
+            },
+            {
+                rank: 3,
+                name: "Bernard Arnault",
+                country: "🇫🇷 France",
+                industry: "Luxury",
+                netWorth: "$210 Billion",
+                company: "LVMH (Louis Vuitton, Dior, Tiffany)",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Bernard_Arnault_%283%29_-2017_%28cropped%29.jpg/800px-Bernard_Arnault_%283%29_-2017_%28cropped%29.jpg",
+                coverImg: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80",
+                quote: "I see myself as an ambassador of French heritage and French culture.",
+                bio: "French business magnate who built LVMH into the world's largest luxury goods conglomerate, acquiring iconic brands like Christian Dior, Tiffany & Co., and Moët & Chandon.",
+                works: ["LVMH Luxury Conglomerate", "Acquisition of Tiffany & Co.", "Fondation Louis Vuitton Museum"],
+                importance: "Redefined modern luxury branding, craftsmanship heritage, and international fashion retail.",
+                when: "1980s – Present",
+                why: "Balancing creative artistic freedom with uncompromising financial control.",
+                how: "Acquired family-owned prestige houses and centralized supply chain financing.",
+                companies: "LVMH Moët Hennessy Louis Vuitton",
+                succeededBy: "Delphine Arnault, Antoine Arnault",
+                mission: "To represent the refined art of living (Art de Vivre) across all luxury markets.",
+                vision: "Preserve centuries-old craftsmanship while expanding global luxury presence."
+            },
+            {
+                rank: 4,
+                name: "Jeff Bezos",
+                country: "🇺🇸 USA",
+                industry: "Retail",
+                netWorth: "$205 Billion",
+                company: "Amazon, Blue Origin, Washington Post",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Jeff_Bezos_at_Amazon_Spheres_Grand_Opening_Edit_2.jpg/800px-Jeff_Bezos_at_Amazon_Spheres_Grand_Opening_Edit_2.jpg",
+                coverImg: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1200&q=80",
+                quote: "If you do build a great experience, customers tell each other about that. Word of mouth is very powerful.",
+                bio: "Founded Amazon in 1994 as an online bookstore in his garage, transforming it into a global e-commerce and cloud computing titan.",
+                works: ["Amazon Web Services (AWS)", "Amazon Prime Subscription Network", "Blue Origin New Glenn Rocket"],
+                importance: "Pioneered cloud computing infrastructure and 1-day logistics networks.",
+                when: "1994 – Present",
+                why: "Customer obsession rather than competitor obsession.",
+                how: "Reinvested all cash flows back into logistics fulfillment and AWS server infrastructure.",
+                companies: "Amazon.com, Blue Origin, Bezos Expeditions",
+                succeededBy: "Andy Jassy (Amazon CEO)",
+                mission: "To be Earth's most customer-centric company.",
+                vision: "Move heavy industrial manufacturing off Earth to preserve our home planet."
+            },
+            {
+                rank: 5,
+                name: "Larry Ellison",
+                country: "🇺🇸 USA",
+                industry: "Tech",
+                netWorth: "$195 Billion",
+                company: "Oracle Corporation",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Larry_Ellison_October_2015.jpg/800px-Larry_Ellison_October_2015.jpg",
+                coverImg: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80",
+                quote: "When you innovate, you have to be prepared for everyone telling you that you are nuts.",
+                bio: "Co-founded Oracle Corporation in 1977 to create commercial enterprise relational database systems, leading Oracle's massive pivot into AI cloud data centers.",
+                works: ["Oracle Relational Database", "Oracle Autonomous Cloud", "Lanai Island Sustainability Project"],
+                importance: "Built the database software backbone for enterprise corporations and global banking systems.",
+                when: "1970s – Present",
+                why: "Relentless sales focus and early conviction in enterprise software locking.",
+                how: "Acquired Sun Microsystems, PeopleSoft, and Cerner to lock in enterprise software infrastructure.",
+                companies: "Oracle Corporation",
+                succeededBy: "Safra Catz (Oracle CEO)",
+                mission: "To help people see data in new ways, discover insights, and unlock endless possibilities.",
+                vision: "Power global health networks and AI supercomputing via unified cloud architectures."
+            },
+            {
+                rank: 6,
+                name: "Jensen Huang",
+                country: "🇺🇸 USA",
+                industry: "Tech",
+                netWorth: "$145 Billion",
+                company: "NVIDIA",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Jensen_Huang_Computex_2023_main_keynote.jpg/800px-Jensen_Huang_Computex_2023_main_keynote.jpg",
+                coverImg: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80",
+                quote: "Software is eating the world, but AI is going to eat software.",
+                bio: "Co-founded NVIDIA in 1993. Originally manufacturing 3D graphics cards for video games, he transformed NVIDIA into the undisputed hardware engine powering global generative AI.",
+                works: ["CUDA Parallel Computing Architecture", "H100 & Blackwell AI Superchips", "Omniverse Digital Twin Platform"],
+                importance: "Single-handedly enabled the modern Artificial Intelligence revolution through GPU computing.",
+                when: "1990s – Present",
+                why: "Decades-long conviction in accelerated computing and parallel processing.",
+                how: "Created CUDA software layer in 2006, locking developers into NVIDIA hardware.",
+                companies: "NVIDIA Corporation",
+                succeededBy: "NVIDIA Senior Leadership Council",
+                mission: "To solve computer graphics and AI problems that normal computers cannot solve.",
+                vision: "Build digital twin simulations of Earth and supply AI processing power to every industry."
+            },
+            {
+                rank: 7,
+                name: "Sergey Brin",
+                country: "🇺🇸 USA",
+                industry: "Tech",
+                netWorth: "$140 Billion",
+                company: "Alphabet (Google)",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Sergey_Brin_cropped.jpg/800px-Sergey_Brin_cropped.jpg",
+                coverImg: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80",
+                quote: "Obviously everyone wants to be successful, but I want to be looked back on as being very innovative.",
+                bio: "Co-founded Google with Larry Page in 1998 while PhD students at Stanford. He oversaw Google X Moonshots and core search algorithm breakthroughs.",
+                works: ["PageRank Search Algorithm", "Google X Moonshot Factory", "Gemini AI Architecture"],
+                importance: "Organized world knowledge and created the modern internet search and digital advertising economy.",
+                when: "1998 – Present",
+                why: "Scientific approach to data indexing and commitment to radical innovation.",
+                how: "Monetized search traffic with highly targeted, programmatic auction advertising.",
+                companies: "Alphabet Inc. / Google",
+                succeededBy: "Sundar Pichai (Alphabet CEO)",
+                mission: "To organize the world's information and make it universally accessible and useful.",
+                vision: "Solve fundamental human longevity, transport, and energy challenges through AI."
+            },
+            {
+                rank: 8,
+                name: "Larry Page",
+                country: "🇺🇸 USA",
+                industry: "Tech",
+                netWorth: "$145 Billion",
+                company: "Alphabet (Google)",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Larry_Page_in_2008.jpg/800px-Larry_Page_in_2008.jpg",
+                coverImg: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
+                quote: "Always deliver more than expected.",
+                bio: "Co-founded Google and served as its initial CEO. He spearheaded acquisitions of Android and YouTube, creating the world's dominant digital mobile ecosystem.",
+                works: ["PageRank Patent", "Acquisition of Android & YouTube", "Waymo Autonomous Driving"],
+                importance: "Laid the digital groundwork for how humanity navigates, searches, and consumes video media.",
+                when: "1998 – Present",
+                why: "Focus on 10x moonshot engineering goals rather than 10% incremental improvements.",
+                how: "Acquired high-potential early startups (Android, Keyhole, YouTube) and scaled them globally.",
+                companies: "Alphabet Inc.",
+                succeededBy: "Sundar Pichai",
+                mission: "To build software systems that answer questions instantly and autonomously.",
+                vision: "Automate global transportation through Waymo and solve complex diseases with AI."
+            },
+            {
+                rank: 9,
+                name: "Michael Dell",
+                country: "🇺🇸 USA",
+                industry: "Tech",
+                netWorth: "$120 Billion",
+                company: "Dell Technologies",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Michael_Dell_2010.jpg/800px-Michael_Dell_2010.jpg",
+                coverImg: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+                quote: "You don't have to be a genius or a visionary or even a college graduate to be successful. You just need a framework and a dream.",
+                bio: "Founded Dell Computer Corporation in 1984 from his University of Texas dorm room with $1,000. Pioneered direct-to-consumer PC manufacturing and enterprise data servers.",
+                works: ["Direct-to-Customer PC Model", "EMC $67 Billion Acquisition", "Dell Technologies Empire"],
+                importance: "Democratized affordable personal computing hardware and modern enterprise servers.",
+                when: "1980s – Present",
+                why: "Elimination of middlemen and relentless supply chain inventory speed.",
+                how: "Built customized PCs only after receiving customer orders, keeping inventory costs near zero.",
+                companies: "Dell Technologies, MSD Capital",
+                succeededBy: "Dell Executive Leadership",
+                mission: "To create technologies that drive human progress across every nation.",
+                vision: "Supply the cloud and hardware edge infrastructure powering global AI model deployments."
+            },
+            {
+                rank: 10,
+                name: "Mukesh Ambani",
+                country: "🇮🇳 India",
+                industry: "Energy",
+                netWorth: "$115 Billion",
+                company: "Reliance Industries (Jio, Retail)",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Mukesh_Ambani.jpg/800px-Mukesh_Ambani.jpg",
+                coverImg: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1200&q=80",
+                quote: "Data is the new oil, and intelligent data is the new petrol.",
+                bio: "Chairman of Reliance Industries. He transformed his family's petrochemical giant into India's largest telecommunications and retail empire through Reliance Jio.",
+                works: ["Reliance Jio 4G/5G Revolution", "Jamnagar Oil Refinery Complex", "Reliance Retail Network"],
+                importance: "Brought ultra-affordable mobile internet to 450+ million citizens across India.",
+                when: "2000s – Present",
+                why: "Massive scale execution and predatory pricing strategy to capture entire national markets.",
+                how: "Invested $35 Billion upfront to lay nationwide fiber-optic cables and 4G towers.",
+                companies: "Reliance Industries Ltd.",
+                succeededBy: "Akash Ambani, Isha Ambani, Anant Ambani",
+                mission: "To empower every Indian citizen with digital connectivity and green energy access.",
+                vision: "Transition Reliance into a net-zero green hydrogen and clean energy powerhouse by 2035."
+            },
+            {
+                rank: 11,
+                name: "Warren Buffett",
+                country: "🇺🇸 USA",
+                industry: "Finance",
+                netWorth: "$140 Billion",
+                company: "Berkshire Hathaway",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Warren_Buffett_at_the_2015_MAM_Author_Meeting.jpg/800px-Warren_Buffett_at_the_2015_MAM_Author_Meeting.jpg",
+                coverImg: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80",
+                quote: "Rule No. 1: Never lose money. Rule No. 2: Never forget rule No. 1.",
+                bio: "Known as the 'Oracle of Omaha', he built Berkshire Hathaway into a $1 Trillion holding company using value investing principles learned from Benjamin Graham.",
+                works: ["Berkshire Hathaway Conglomerate", "The Giving Pledge Co-Founder", "GEICO & BNSF Acquisition"],
+                importance: "Defined modern value investing and compound interest allocation philosophy.",
+                when: "1960s – Present",
+                why: "Patience, economic moats, and buying great businesses at fair prices.",
+                how: "Reinvested insurance cash float into durable, capital-efficient monopolies.",
+                companies: "Berkshire Hathaway Inc.",
+                succeededBy: "Greg Abel (CEO Successor)",
+                mission: "To deploy shareholder capital into enduring business franchises with strong moats.",
+                vision: "Demonstrate the ultimate long-term compounding power of ethical capitalism."
+            },
+            {
+                rank: 12,
+                name: "Bill Gates",
+                country: "🇺🇸 USA",
+                industry: "Tech",
+                netWorth: "$135 Billion",
+                company: "Microsoft, Breakthrough Energy",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Bill_Gates_2017_%28cropped%29.jpg/800px-Bill_Gates_2017_%28cropped%29.jpg",
+                coverImg: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80",
+                quote: "We always overestimate the change that will occur in the next two years and underestimate the change that will occur in the next ten.",
+                bio: "Co-founded Microsoft in 1975, launching the personal computer software revolution with MS-DOS and Windows. Later co-founded the Bill & Melinda Gates Foundation.",
+                works: ["Windows Operating System", "Bill & Melinda Gates Foundation", "Breakthrough Energy Ventures"],
+                importance: "Placed a computer on every desk and in every home, then spearheaded global polio eradication.",
+                when: "1975 – Present",
+                why: "Early conviction in software licensing platforms rather than proprietary hardware.",
+                how: "Licensed MS-DOS to IBM while retaining rights to sell it to other PC manufacturers.",
+                companies: "Microsoft Corporation, TerraPower",
+                succeededBy: "Satya Nadella (Microsoft CEO)",
+                mission: "To eradicate global infectious diseases and fund zero-carbon energy technology.",
+                vision: "A world where every child grows up healthy, educated, and protected from climate change."
+            },
+            {
+                rank: 13,
+                name: "Steve Ballmer",
+                country: "🇺🇸 USA",
+                industry: "Tech",
+                netWorth: "$125 Billion",
+                company: "Microsoft / LA Clippers",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Steve_Ballmer_2014.jpg/800px-Steve_Ballmer_2014.jpg",
+                coverImg: "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=1200&q=80",
+                quote: "Developers, developers, developers!",
+                bio: "Joined Microsoft as employee #30 in 1980 and served as CEO from 2000 to 2014, tripling revenue and building enterprise software dominance.",
+                works: ["Microsoft Enterprise Expansion", "LA Clippers Intuit Dome Arena", "USAFacts Open Data Portal"],
+                importance: "Built Microsoft's enterprise sales juggernaut and pioneered tech sports franchise ownership.",
+                when: "1980s – Present",
+                why: "High energy, relentless commercial execution, and developer loyalty.",
+                how: "Scaled Office and Windows enterprise enterprise licenses across global corporate contracts.",
+                companies: "Microsoft, Los Angeles Clippers",
+                succeededBy: "Gillian Zucker (Clippers President)",
+                mission: "To provide transparent government metrics via USAFacts and elevate live sports experiences.",
+                vision: "Create the most high-tech live entertainment venue in sports history."
+            },
+            {
+                rank: 14,
+                name: "Amancio Ortega",
+                country: "🇪🇸 Spain",
+                industry: "Retail",
+                netWorth: "$110 Billion",
+                company: "Inditex (Zara)",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Amancio_Ortega_2015.jpg/800px-Amancio_Ortega_2015.jpg",
+                coverImg: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80",
+                quote: "Attempting to hurt the company by taking advantage of its weakness is a waste of time.",
+                bio: "Spanish fashion tycoon who co-founded Zara in 1975, pioneering fast fashion supply chain operations capable of bringing designs from sketch to store in 15 days.",
+                works: ["Zara Fast-Fashion Supply Chain", "Inditex Retail Conglomerate", "Pontegadea Real Estate Holding"],
+                importance: "Transformed global retail apparel through ultra-fast inventory cycles and instant runway adaptations.",
+                when: "1970s – Present",
+                why: "Real-time customer demand feedback instead of advance seasonal forecasting.",
+                how: "Kept manufacturing close to European distribution hubs for rapid logistics response.",
+                companies: "Inditex (Zara, Massimo Dutti, Pull&Bear)",
+                succeededBy: "Marta Ortega (Inditex Chairwoman)",
+                mission: "To deliver trendy, accessible fashion to consumers globally at unprecedented speed.",
+                vision: "Reinvest apparel cash flows into prime global real estate assets."
+            },
+            {
+                rank: 15,
+                name: "Gautam Adani",
+                country: "🇮🇳 India",
+                industry: "Energy",
+                netWorth: "$95 Billion",
+                company: "Adani Group (Ports, Green Energy)",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Gautam_Adani.jpg/800px-Gautam_Adani.jpg",
+                coverImg: "https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80",
+                quote: "Growth with Goodness is our guiding philosophy.",
+                bio: "Self-made Indian billionaire who founded the Adani Group, expanding from commodity trading into controlling India's largest port, airport, and green energy operations.",
+                works: ["Mundra Port Infrastructure", "Khavda Renewable Energy Park", "Adani Green Energy Portfolio"],
+                importance: "Constructed critical logistics hubs, power grids, and ports underpinning India's economic expansion.",
+                when: "1980s – Present",
+                why: "Bold infrastructure investments aligned with national economic growth priorities.",
+                how: "Leveraged infrastructure cash flows to finance utility megaprojects.",
+                companies: "Adani Enterprises, Adani Green, Adani Ports",
+                succeededBy: "Karan Adani, Jeet Adani",
+                mission: "To build world-class infrastructure assets that drive India's national self-reliance.",
+                vision: "Become the world's largest solar power generator and green energy producer."
+            },
+            {
+                rank: 16,
+                name: "Satya Nadella",
+                country: "🇺🇸 USA",
+                industry: "Tech",
+                netWorth: "$1.8 Billion",
+                company: "Microsoft",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/MS-CEO-Satya-Nadella_%28cropped%29.jpg/800px-MS-CEO-Satya-Nadella_%28cropped%29.jpg",
+                coverImg: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80",
+                quote: "Our industry does not respect tradition — it only respects innovation.",
+                bio: "CEO of Microsoft who orchestrated one of the greatest corporate turnarounds in tech history, pivoting Microsoft to cloud computing (Azure) and backing OpenAI.",
+                works: ["Microsoft Azure Cloud Growth", "OpenAI Strategic Partnership", "Acquisitions of LinkedIn & GitHub"],
+                importance: "Resurrected Microsoft into a $3+ Trillion giant and spearheaded the commercial deployment of Generative AI.",
+                when: "2014 – Present",
+                why: "Empathy-driven leadership and culture shift from 'know-it-all' to 'learn-it-all'.",
+                how: "Embraced open-source cross-platform software and invested $13B into OpenAI early.",
+                companies: "Microsoft Corporation",
+                succeededBy: "Microsoft Board of Directors",
+                mission: "To empower every person and every organization on the planet to achieve more.",
+                vision: "Infuse artificial intelligence copilots into every software interface on Earth."
+            },
+            {
+                rank: 17,
+                name: "Tim Cook",
+                country: "🇺🇸 USA",
+                industry: "Tech",
+                netWorth: "$2.2 Billion",
+                company: "Apple Inc.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tim_Cook_2017.jpg/800px-Tim_Cook_2017.jpg",
+                coverImg: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=1200&q=80",
+                quote: "Let your joy be in your journey — not in some distant goal.",
+                bio: "CEO of Apple Inc. since 2011. He built the most efficient global hardware supply chain in history, growing Apple's market cap from $350B to over $3.5 Trillion.",
+                works: ["Apple Silicon M-Series Chips", "Apple Watch & Services Platform", "Apple Vision Pro Spatial Computer"],
+                importance: "Masterminded modern electronics logistics and elevated consumer privacy standards.",
+                when: "2011 – Present",
+                why: "Unrivaled supply chain operational excellence and ecosystem integration.",
+                how: "Optimized inventory turnover and expanded Apple Services (Pay, Music, iCloud) recurring revenue.",
+                companies: "Apple Inc.",
+                succeededBy: "Jeff Williams (Apple COO)",
+                mission: "To make the best products in the world that enrich people's lives.",
+                vision: "Achieve 100% carbon neutrality across Apple's entire global manufacturing supply chain."
+            },
+            {
+                rank: 18,
+                name: "Zhong Shanshan",
+                country: "🇨🇳 China",
+                industry: "Retail",
+                netWorth: "$65 Billion",
+                company: "Nongfu Spring / Wantai Biological",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Placeholder_LC.svg/800px-Placeholder_LC.svg.png",
+                coverImg: "https://images.unsplash.com/photo-1548839140-29a749e1cf4e?auto=format&fit=crop&w=1200&q=80",
+                quote: "A business without its own culture is doomed to collapse.",
+                bio: "Known as the 'Lone Wolf', he built Nongfu Spring into China's dominant bottled water brand and acquired majority control of vaccine maker Wantai Biological.",
+                works: ["Nongfu Spring Bottled Water Empire", "Wantai Hepatitis & HPV Vaccines"],
+                importance: "Built China's largest consumer beverage empire alongside critical healthcare diagnostics.",
+                when: "1990s – Present",
+                why: "Relentless branding focusing on natural spring water quality.",
+                how: "Secured exclusive mineral water extraction licenses across China's top natural springs.",
+                companies: "Nongfu Spring Co., Beijing Wantai Pharmacy",
+                succeededBy: "Zhong Shuzi",
+                mission: "To deliver health, purity, and natural refreshment to every household.",
+                vision: "Pioneer sustainable consumer beverages alongside biotechnology advances."
+            },
+            {
+                rank: 19,
+                name: "Carlos Slim Helú",
+                country: "🇲🇽 Mexico",
+                industry: "Finance",
+                netWorth: "$90 Billion",
+                company: "Grupo Carso / América Móvil",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Carlos_Slim_March_2011.jpg/800px-Carlos_Slim_March_2011.jpg",
+                coverImg: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+                quote: "When you live for others' opinions, you are dead. I don't want to live thinking about how I'll be remembered.",
+                bio: "Mexican business magnate who acquired Telmex during Mexico's privatization era, building América Móvil into Latin America's largest telecom operator.",
+                works: ["América Móvil Telecommunications", "Grupo Carso Industrial Empire", "Museo Soumaya Art Foundation"],
+                importance: "Constructed the telecom and industrial infrastructure across Latin America.",
+                when: "1980s – Present",
+                why: "Value acquisition of distressed assets during financial crises.",
+                how: "Strict cost discipline and reinvestment of capital into strategic infrastructure monopolies.",
+                companies: "América Móvil, Grupo Carso, Inbursa",
+                succeededBy: "Carlos Slim Domit",
+                mission: "To expand digital infrastructure and cultural arts throughout Latin America.",
+                vision: "Bridge the digital divide across emerging Latin American economies."
+            },
+            {
+                rank: 20,
+                name: "Zhang Yiming",
+                country: "🇨🇳 China",
+                industry: "Tech",
+                netWorth: "$50 Billion",
+                company: "ByteDance (TikTok, Douyin)",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Placeholder_LC.svg/800px-Placeholder_LC.svg.png",
+                coverImg: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1200&q=80",
+                quote: "Develop a romantic working attitude: stay curious, stay open-minded.",
+                bio: "Founded ByteDance in 2012. He revolutionized digital content consumption by developing TikTok and its AI-driven short video recommendation engine.",
+                works: ["TikTok Recommendation Engine", "Toutiao News Aggregator", "CapCut Video Editor"],
+                importance: "Pioneered algorithmic social entertainment and mobile AI content delivery.",
+                when: "2010s – Present",
+                why: "Algorithmic personalization that presents content based on interest graphs rather than social graphs.",
+                how: "Engineered scalable machine-learning models to analyze video engagement metrics instantly.",
+                companies: "ByteDance Ltd.",
+                succeededBy: "Liang Rubo (ByteDance CEO)",
+                mission: "To inspire creativity and bring joy through AI video technology.",
+                vision: "Build a global platform connecting creators across every culture."
+            }
+        ];
+
+        /* Generate additional mock profiles to reach 100 for the directory */
+        const additionalNames = [
+            "Ma Huateng", "Robin Zeng", "Jack Ma", "Shiv Nadar", "Radhakishan Damani",
+            "Savitri Jindal", "Klaus-Michael Kuehne", "Ken Griffin", "Stephen Schwarzman", "Jim Walton",
+            "Alice Walton", "Rob Walton", "Lukas Walton", "Reinhold Wuerth", "Françoise Bettencourt Meyers",
+            "Maserati Executive", "Colin Huang", "William Lei Ding", "Tadashi Yanai", "Eyal Ofer",
+            "Gino Rea", "Siddhartha Lal", "Masayoshi Son", "David Tepper", "Thomas Peterffy",
+            "Vikas Sharma", "Alexander Soros", "Patrick Collison", "John Collison", "Brian Chesky",
+            "Nathan Blecharczyk", "Joe Gebbia", "Alexandr Wang", "Palmer Luckey", "Marc Andreessen",
+            "Ben Horowitz", "Peter Thiel", "Max Levchin", "Reid Hoffman", "Travis Kalanick",
+            "Dara Khosrowshahi", "Daniel Ek", "Tobi Lütke", "Stewart Butterfield", "Eric Yuan",
+            "Melanie Perkins", "Evan Spiegel", "Bobby Murphy", "Dustin Moskovitz", "Eduardo Saverin",
+            "Jan Koum", "Brian Acton", "Pavel Durov", "Vitalik Buterin", "Changpeng Zhao",
+            "Sam Altman", "Greg Brockman", "Ilya Sutskever", "Dario Amodei", "Daniela Amodei",
+            "Demis Hassabis", "Yann LeCun", "Fei-Fei Li", "Andrew Ng", "Geoffrey Hinton",
+            "Yoshua Bengio", "Arthur Mensch", "Aravind Srinivas", "Clara Shih", "Clem Delangue",
+            "Marc Benioff", "Shantanu Narayen", "Frank Slootman", "Jensen Huang Jr", "Lisa Su",
+            "Pat Gelsinger", "Cristiano Amon", "Ren Zhengfei", "Meng Wanzhou", "Lei Jun"
+        ];
+
+        const industriesList = ["Tech", "Finance", "Automotive", "Energy", "Luxury", "Retail", "Steel"];
+        const countriesList = ["🇺🇸 USA", "🇨🇳 China", "🇮🇳 India", "🇬🇧 UK", "🇩🇪 Germany", "🇯🇵 Japan", "🇫🇷 France", "🇸🇬 Singapore", "🇨🇦 Canada"];
+
+        // Fill remaining magnates dynamically up to 100
+        for (let i = magnates100.length + 1; i <= 100; i++) {
+            const name = additionalNames[i - 21] || `Global Innovator #${i}`;
+            const ind = industriesList[i % industriesList.length];
+            const country = countriesList[i % countriesList.length];
+            const netVal = (Math.random() * 40 + 5).toFixed(1);
+
+            magnates100.push({
+                rank: i,
+                name: name,
+                country: country,
+                industry: ind,
+                netWorth: `$${netVal} Billion`,
+                company: `${name.split(' ')[0]} Holdings / Global Systems`,
+                img: `https://images.unsplash.com/photo-${1534528741775 + (i * 10)}?auto=format&fit=crop&w=400&q=80`,
+                coverImg: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+                quote: `Innovation and persistence are the two fundamental fuels of human advancement.`,
+                bio: `${name} is an influential executive and visionary leader operating in the ${ind} industry, driving technological transformation and corporate growth.`,
+                works: [`Global ${ind} Operations`, "Sustainable Enterprise Initiative", "Digital Haven Platform"],
+                importance: `Pioneered efficient commercial models within the global ${ind} sector.`,
+                when: "2010s – Present",
+                why: "Focus on capital efficiency and continuous strategic execution.",
+                how: "Leveraging scalable technology and international supply network expansion.",
+                companies: `${name.split(' ')[0]} International`,
+                succeededBy: "Senior Executive Board",
+                mission: `To provide world-class innovation and economic value across global markets.`,
+                vision: "Achieve carbon-neutral operational scale while inspiring future generations."
+            });
+        }
+
+        /* -------------------------------------------------------------
+           3. APPLICATION INITIALIZATION & DOM RENDERING
+        ------------------------------------------------------------- */
+        window.onload = function() {
+            renderTopTenTycoons();
+            renderMagnatesGrid(magnates100);
+            initCanvasPetals();
+        };
+
+        // Render Featured Top 10 Historical Tycoons
+        function renderTopTenTycoons() {
+            const container = document.getElementById('topTenTycoonsContainer');
+            container.innerHTML = topTenTycoons.map(t => `
+                <div onclick="openTycoonModal(${t.rank})" class="emerald-glow-card p-5 rounded-2xl cursor-pointer relative flex flex-col justify-between group">
+                    <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-haven-gold/20 text-haven-gold border border-haven-gold/40">
+                        Tycoon #${t.rank}
+                    </div>
+
+                    <div>
+                        <div class="w-16 h-16 rounded-2xl overflow-hidden mb-4 border border-haven-gold/30 shadow-md">
+                            <img src="${t.img}" alt="${t.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" onerror="this.src='https://placehold.co/100x100/0F382C/E5A93C?text=Tycoon'">
+                        </div>
+
+                        <h3 class="font-serif-title font-bold text-lg text-white group-hover:text-haven-gold transition">${t.name}</h3>
+                        <p class="text-xs text-haven-rosegold font-medium">${t.years}</p>
+                        
+                        <div class="mt-3 space-y-1">
+                            <div class="text-[11px] text-slate-300"><strong>Empire:</strong> ${t.empire}</div>
+                            <div class="text-[11px] text-emerald-400"><strong>Industry:</strong> ${t.industry}</div>
+                        </div>
+
+                        <p class="text-xs text-slate-300 mt-3 line-clamp-3 leading-relaxed bg-slate-950/40 p-2.5 rounded-xl border border-white/5">
+                            ${t.impact}
+                        </p>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-haven-gold">
+                        <span>View Legacy Profile</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Main Directory Grid (100 Business Leaders)
+        function renderMagnatesGrid(data) {
+            const grid = document.getElementById('magnatesGrid');
+            const countText = document.getElementById('showingCountText');
+
+            countText.innerText = `Showing ${data.length} of 100 Business Leaders`;
+
+            if (data.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-slate-400">
+                        <i class="fa-solid fa-face-frown text-3xl mb-2 text-haven-gold"></i>
+                        <p>No business leaders match your search or filter selection.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = data.map(m => `
+                <div onclick="openMagnateModal(${m.rank})" class="glass-panel p-5 rounded-3xl cursor-pointer relative flex flex-col justify-between hover:border-haven-gold/50 transition duration-300 group hover:-translate-y-1">
+                    <!-- Serial Number Badge (Top Right) -->
+                    <div class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-black bg-gradient-to-r from-haven-gold to-haven-rosegold text-slate-950 shadow-md">
+                        #${m.rank}
+                    </div>
+
+                    <div>
+                        <!-- Header with Profile Image & Country -->
+                        <div class="flex items-center space-x-4 mb-4">
+                            <img src="${m.img}" alt="${m.name}" class="w-16 h-16 rounded-2xl object-cover border-2 border-slate-700 group-hover:border-haven-gold transition shadow-lg" onerror="this.src='https://placehold.co/100x100/1E2022/E5A93C?text=Magnate'">
+                            <div>
+                                <span class="text-[11px] text-slate-400 font-medium block">${m.country}</span>
+                                <h3 class="font-bold text-base text-white group-hover:text-haven-gold transition line-clamp-1">${m.name}</h3>
+                                <span class="text-xs text-haven-rosegold font-medium">${m.industry}</span>
+                            </div>
+                        </div>
+
+                        <!-- Enterprise & Net Worth Card Info -->
+                        <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800/80 space-y-1.5 mb-4">
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="text-slate-400">Empire/Company:</span>
+                                <span class="text-slate-200 font-semibold line-clamp-1 max-w-[140px]">${m.company}</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="text-slate-400">Latest Net Worth:</span>
+                                <span class="gold-glow-text font-extrabold text-sm">${m.netWorth}</span>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-slate-400 line-clamp-2 italic">
+                            "${m.quote}"
+                        </p>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-300 group-hover:text-haven-gold transition">
+                        <span>Inspect Full Profile</span>
+                        <i class="fa-solid fa-circle-chevron-right text-sm"></i>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        /* Filter Magnates Function */
+        function filterMagnates() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const industry = document.getElementById('industryFilter').value;
+
+            const filtered = magnates100.filter(m => {
+                const matchesSearch = m.name.toLowerCase().includes(query) || 
+                                      m.company.toLowerCase().includes(query) || 
+                                      m.country.toLowerCase().includes(query);
+                const matchesIndustry = industry === 'ALL' || m.industry.toLowerCase().includes(industry.toLowerCase());
+
+                return matchesSearch && matchesIndustry;
+            });
+
+            renderMagnatesGrid(filtered);
+        }
+
+        /* -------------------------------------------------------------
+           4. MODAL INTERACTION & TAB SWITCHING LOGIC
+        ------------------------------------------------------------- */
+        let activeProfile = null;
+
+        function openMagnateModal(rank) {
+            const m = magnates100.find(item => item.rank === rank);
+            if (!m) return;
+            activeProfile = m;
+
+            document.getElementById('modalCoverImg').src = m.coverImg;
+            document.getElementById('modalProfileImg').src = m.img;
+            document.getElementById('modalRank').innerText = `#${m.rank}`;
+            document.getElementById('modalCountry').innerText = m.country;
+            document.getElementById('modalName').innerText = m.name;
+            document.getElementById('modalIndustry').innerText = `${m.industry} Magnate`;
+            document.getElementById('modalNetWorth').innerText = m.netWorth;
+
+            document.getElementById('modalQuote').innerText = `"${m.quote}"`;
+            document.getElementById('modalBioText').innerText = m.bio;
+
+            // Works List
+            const worksList = document.getElementById('modalWorksList');
+            worksList.innerHTML = m.works.map(w => `<li class="text-xs sm:text-sm">${w}</li>`).join('');
+
+            document.getElementById('modalImportanceText').innerText = m.importance;
+            document.getElementById('modalWhenText').innerText = m.when;
+            document.getElementById('modalWhyText').innerText = m.why;
+            document.getElementById('modalHowText').innerText = m.how;
+
+            document.getElementById('modalCompaniesText').innerText = `${m.company} (Flagship Portfolio)`;
+            document.getElementById('modalSucceededByText').innerText = m.succeededBy;
+
+            document.getElementById('modalMissionText').innerText = m.mission;
+            document.getElementById('modalVisionText').innerText = m.vision;
+
+            document.getElementById('modalArchiveId').innerText = `SM-2026-${m.rank}`;
+
+            switchTab('tab-bio');
+            document.getElementById('magnateModal').classList.remove('hidden');
+        }
+
+        function openTycoonModal(rank) {
+            const t = topTenTycoons.find(item => item.rank === rank);
+            if (!t) return;
+            activeProfile = t;
+
+            document.getElementById('modalCoverImg').src = "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80";
+            document.getElementById('modalProfileImg').src = t.img;
+            document.getElementById('modalRank').innerText = `Tycoon #${t.rank}`;
+            document.getElementById('modalCountry').innerText = "🇺🇸 Industrial Era";
+            document.getElementById('modalName').innerText = t.name;
+            document.getElementById('modalIndustry').innerText = `${t.industry} (${t.years})`;
+            document.getElementById('modalNetWorth').innerText = t.netWorth;
+
+            document.getElementById('modalQuote').innerText = `"${t.quote}"`;
+            document.getElementById('modalBioText').innerText = t.bio;
+
+            const worksList = document.getElementById('modalWorksList');
+            worksList.innerHTML = t.works.map(w => `<li class="text-xs sm:text-sm">${w}</li>`).join('');
+
+            document.getElementById('modalImportanceText').innerText = t.importance;
+            document.getElementById('modalWhenText').innerText = t.when;
+            document.getElementById('modalWhyText').innerText = t.why;
+            document.getElementById('modalHowText').innerText = t.how;
+
+            document.getElementById('modalCompaniesText').innerText = t.companies;
+            document.getElementById('modalSucceededByText').innerText = t.successors;
+
+            document.getElementById('modalMissionText').innerText = t.impact;
+            document.getElementById('modalVisionText').innerText = t.vision;
+
+            document.getElementById('modalArchiveId').innerText = `TYCOON-HIST-${t.rank}`;
+
+            switchTab('tab-bio');
+            document.getElementById('magnateModal').classList.remove('hidden');
+        }
+
+        function closeMagnateModal() {
+            document.getElementById('magnateModal').classList.add('hidden');
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.remove('hidden');
+            
+            // Highlight current active tab button
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            if(tabId === 'tab-bio') tabButtons[0].classList.add('active');
+            if(tabId === 'tab-works') tabButtons[1].classList.add('active');
+            if(tabId === 'tab-success') tabButtons[2].classList.add('active');
+            if(tabId === 'tab-companies') tabButtons[3].classList.add('active');
+            if(tabId === 'tab-vision') tabButtons[4].classList.add('active');
+        }
+
+        function addReaction(type) {
+            const countEl = document.getElementById(`react-${type}-count`);
+            let current = parseInt(countEl.innerText);
+            countEl.innerText = current + 1;
+        }
+
+        /* -------------------------------------------------------------
+           5. PRODUCER HUB & LIVE KEYNOTE MODAL CONTROLS
+        ------------------------------------------------------------- */
+        function openExecutiveHubModal() {
+            document.getElementById('executiveHubModal').classList.remove('hidden');
+        }
+        function closeExecutiveHubModal() {
+            document.getElementById('executiveHubModal').classList.add('hidden');
+        }
+
+        function openLiveKeynoteModal() {
+            document.getElementById('liveKeynoteModal').classList.remove('hidden');
+        }
+        function closeLiveKeynoteModal() {
+            document.getElementById('liveKeynoteModal').classList.add('hidden');
+        }
+
+        function sendLiveMessage() {
+            const input = document.getElementById('liveChatInput');
+            if (!input.value.trim()) return;
+            alert(`Message Published to Haven Stream: "${input.value}"`);
+            input.value = '';
+        }
+
+        /* -------------------------------------------------------------
+           6. SOURCE CODE INSPECTOR & SINGLE FILE HTML DOWNLOAD
+        ------------------------------------------------------------- */
+        function openSourceModal() {
+            const htmlContent = document.documentElement.outerHTML;
+            document.getElementById('sourceCodeTextArea').value = htmlContent;
+            document.getElementById('sourceModal').classList.remove('hidden');
+        }
+
+        function closeSourceModal() {
+            document.getElementById('sourceModal').classList.add('hidden');
+        }
+
+        function copySourceToClipboard() {
+            const textarea = document.getElementById('sourceCodeTextArea');
+            textarea.select();
+            document.execCommand('copy');
+            alert('Full 100 Billion Smiles HTML code copied to clipboard!');
+        }
+
+        function downloadSingleFileHtml() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '100_billion_smiles_haven.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* -------------------------------------------------------------
+           7. SILICONOUS HAVEN FLOWER PETAL CANVAS BACKGROUND
+        ------------------------------------------------------------- */
+        function initCanvasPetals() {
+            const canvas = document.getElementById('havenCanvas');
+            const ctx = canvas.getContext('2d');
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            const petals = [];
+            const petalCount = 35;
+
+            for (let i = 0; i < petalCount; i++) {
+                petals.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 6 + 3,
+                    speedY: Math.random() * 0.8 + 0.3,
+                    speedX: Math.sin(Math.random() * Math.PI) * 0.5,
+                    opacity: Math.random() * 0.5 + 0.2,
+                    color: i % 2 === 0 ? '#E5A93C' : '#F4A261'
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                petals.forEach(p => {
+                    p.y += p.speedY;
+                    p.x += p.speedX;
+
+                    if (p.y > canvas.height) {
+                        p.y = -10;
+                        p.x = Math.random() * canvas.width;
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.opacity;
+                    ctx.fill();
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+    </script>
+</body>
+</html>
